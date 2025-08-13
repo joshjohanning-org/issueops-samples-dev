@@ -91,14 +91,11 @@ jobs:
           git config --global user.name 'josh-issueops-bot[bot]'
           git config --global user.email '149130343+josh-issueops-bot[bot]@users.noreply.github.com'
           
-          # Clone the production repository as a mirror
-          git clone --mirror https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/joshjohanning-org/issueops-samples.git prod-repo.git
-          
-          # Add this repository as a remote and push
-          cd prod-repo.git
-          git remote add dev-repo https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
-          git fetch dev-repo
-          git push --mirror origin
+          # Clone the dev repository and push to production
+          git clone https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git dev-repo
+          cd dev-repo
+          git remote add prod-repo https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/joshjohanning-org/issueops-samples.git
+          git push prod-repo main:main
 
       - name: Post deployment success message
         if: ${{ env.CONFIRM_DEPLOYMENT == 'yes' && success() }}

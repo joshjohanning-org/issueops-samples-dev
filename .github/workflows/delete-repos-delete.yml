@@ -25,7 +25,7 @@ jobs:
 
       - name: Parse Issue
         id: issue-parser
-        uses: issue-ops/parser@76d5aa095754de1493cbe41934484c4287e16350
+        uses: issue-ops/parser@cb7e2e4e5da701aad0e23e718bc4c91d442ca8ba
         with:
           body: ${{ github.event.issue.body }}
 
